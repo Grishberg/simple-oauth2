@@ -1,20 +1,34 @@
 package simple_oauth2
 
-type Authenticater struct{
+import "github.com/grishberg/simple-oauth2/data"
+
+func NewAuthenticater(db data.Db) Oauth2 {
+	return &Authenticater{db}
 }
 
-func (t *Authenticater)AddProfile(profileId int) string{
-
+type Authenticater struct {
+	db data.Db
 }
-func (t *Authenticater) RemoveProfile(profileId int){
 
+func (t *Authenticater) Init() {
+	t.db.Init()
+	t.db.Connect()
+	return
 }
-func (t *Authenticater) CheckAccessToken(accessToken string) bool{
 
+func (t *Authenticater) AddProfile(profileId int64) string {
+	return t.db.AddProfile(profileId)
 }
-func (t *Authenticater) RefreshToken(clientId string, clientSecret string, refreshToken string){
 
+func (t *Authenticater) DeleteProfile(profileId int64) {
+	t.db.DeleteProfile(profileId)
 }
-func (t *Authenticater) GetRefreshToken(profileId int) string{
-
+func (t *Authenticater) GetProfile(accessToken string) int64 {
+	return t.db.GetProfile(accessToken)
+}
+func (t *Authenticater) RefreshToken(refreshToken string) (string, int) {
+	return t.db.RefreshToken(refreshToken)
+}
+func (t *Authenticater) GetRefreshToken(profileId int64) string {
+	return t.db.GeteRefreshToken(profileId)
 }

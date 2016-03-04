@@ -1,9 +1,10 @@
 package simple_oauth2
 
 type Oauth2 interface {
-	AddProfile(profileId int) string
-	RemoveProfile(profileId int)
-	CheckAccessToken(accessToken string) bool
-	RefreshToken(clientId string, clientSecret string, refreshToken string)
-	GetRefreshToken(profileId int) string
+	Init()
+	AddProfile(profileId int64) string
+	DeleteProfile(profileId int64)
+	GetProfile(accessToken string) int64
+	RefreshToken(refreshToken string)  (string, int)
+	GetRefreshToken(profileId int64) string
 }
