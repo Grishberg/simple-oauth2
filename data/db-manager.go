@@ -34,7 +34,7 @@ type Db struct {
 func (t *Db) Init() {
 	t.dbName = "./oauth2.db"
 	t.expire = 3600
-	sql.Register(t.db_driver, &sqlite3.SQLiteDriver{})
+	//sql.Register(t.db_driver, &sqlite3.SQLiteDriver{})
 	t.Connect()
 	t.createTables()
 	t.Close()

@@ -2,7 +2,8 @@ package simple_oauth2
 
 import "github.com/grishberg/simple-oauth2/data"
 
-func NewAuthenticater(db data.Db) Oauth2 {
+func NewAuthenticater() Oauth2 {
+	var db data.Db
 	return &Authenticater{db}
 }
 
