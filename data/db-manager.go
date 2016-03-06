@@ -137,8 +137,7 @@ func (t*Db) GetProfile(accessToken string) int64 {
 	var profileId int64
 	var expiresIn int64
 	query := "SELECT profile_id, expires_in FROM tokens WHERE access_token =?;"
-	err := t.db.QueryRow(query, accessToken).Scan(&profileId, &expiresIn)
-	t.checkErr(err)
+	t.db.QueryRow(query, accessToken).Scan(&profileId, &expiresIn)
 	if time.Now().Unix() < expiresIn {
 		return profileId
 	}
@@ -147,7 +146,7 @@ func (t*Db) GetProfile(accessToken string) int64 {
 
 func (t*Db) GeteRefreshToken(profileId int64) string {
 	var refreshToken string
-	query := "SELECT refresh_token FROM profiles WHERE profile_id =?;"
+	query := "SELECT refresh_token FROM profiles WHERE id =?;"
 	err := t.db.QueryRow(query, profileId).Scan(&refreshToken)
 	t.checkErr(err)
 
